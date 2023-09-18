@@ -15,3 +15,27 @@ ___
 |   | 4  | Fa életkora  | Ha van ültetett fa, akkor alatta megjelenjen a fa életkora.  |
 |   | 5  | Fa kinézetek választása  | Legördülő menü, melynél különböző fa kinézeteket lehet választani ültetésnél.  |
 |   | 6  | Leaderboard  | Top 5 legrégebbi fával rendelkező user kiiratása, idővel együtt.  |
+
+## Er diagram 
+```plantuml
+@startuml
+entity User{
+ UID char(6) <<PK>>
+ Username: char(40) <<NOT NULL>>
+ Password: char(40) <<NOT NULL>>
+ Last_login: Date
+ Date_joined: Date
+ PlantedTrees: number(4)
+}
+entity Tree{
+ TreeID: number(6) <<PK>>
+ Plant_Date: Date
+ TreeType: char(40)
+}
+entity User_Tree_connection {
+ UserID: char(6) <<FK>>
+ TreeID: number(10) <<FK>>
+}
+
+User||--o{ User_Tree_connection
+Tree||--o{ User_Tree_connection```
