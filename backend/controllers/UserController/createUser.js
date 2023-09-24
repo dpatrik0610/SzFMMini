@@ -20,6 +20,9 @@ async function createUser(req, res) {
     const newUser = {
       username,
       password: hashedPassword,
+      registration_date: new Date(),
+      last_login_date: new Date(),
+      planted_trees: [],
     };
 
     const result = await userRepository.createUser(newUser);

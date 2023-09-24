@@ -1,25 +1,12 @@
-const { UserRepository } = require('./UserRepository');
-const userRepository = new UserRepository();
+const createUser = require('./UserController/createUser');
+const getUserById = require('./UserController/getUserById');
+const getUserByUsername = require('./UserController/getUserByUsername');
+const getUserList = require('./UserController/getUserList');
 
-class UserController {
-  async createUser(newUser) {
-    try {
-      const result = await userRepository.createUser(newUser);
-      return result;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async getUserById(userId) {
-    try {
-      const user = await userRepository.getUserByIdOrNull(userId);
-      return user;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-}
-
-module.exports = UserController;
+// Export the collected functions as an object
+module.exports = {
+  createUser,
+  getUserByUsername,
+  getUserById,
+  getUserList
+};
