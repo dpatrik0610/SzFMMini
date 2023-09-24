@@ -1,9 +1,20 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const cors = require('cors');
+
+//const database = require('./backend/models/db');
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// Configure CORS for regular HTTP requests
+app.use(cors());
+
+// Routes
+const routes = require('./routes/apiRoutes');
+app.use('/', routes)
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
