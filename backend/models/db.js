@@ -1,6 +1,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
-const uri = process.env.MONGODB_URI;
+const uri = process.env.CONNECTION_STRING;
 
 class Database {
   constructor() {
