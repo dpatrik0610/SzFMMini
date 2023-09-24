@@ -5,9 +5,9 @@ const { createUser, getUserByUsername, getUserById , getUserList} = require('../
 
 // const treeController = new TreeController();
 router.get('/users', getUserList);
-router.post('/user/register', createUser);
 router.get('/user/:username', getUserByUsername);
 router.get('/user/:userId', getUserById);
+router.post('/user/register', createUser);
 
 router.get('/', (req,res) =>{
     res.status(200);

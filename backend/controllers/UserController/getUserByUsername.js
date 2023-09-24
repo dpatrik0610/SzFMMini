@@ -6,9 +6,8 @@ async function getUserByUsername(req, res) {
 
   try {
     const user = await userRepository.getUserByUsername(username);
-
     if (user) {
-      res.status(200).json(user);
+      res.status(200).json({_id:user._id});
     } else {
       res.status(404).json({ message: 'User not found' });
     }
