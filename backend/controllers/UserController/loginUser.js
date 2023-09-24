@@ -26,6 +26,13 @@ async function loginUser(req, res) {
       expiresIn: '1h',
     });
 
+    // Set the token as a cookie
+    res.cookie('token', token, {
+      httpOnly: true, // Make the cookie HttpOnly to prevent client-side access
+      secure: true, // Require HTTPS to send the cookie
+      sameSite: 'lax'
+    })
+
     res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
     console.error('Error during login:', error);

@@ -4,9 +4,7 @@ const userRepository = new UserRepository();
 async function getUserById(req, res) {
   try {
     const { userId } = req.params;
-
     const user = await userRepository.getUserById(userId);
-
     if (user) {
       res.status(200).json(user);
     } else {
