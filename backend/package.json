@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Tree Simulator API",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FakanBalint/SzFMMini.git"
+  },
+  "author": "Dobos Patrik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FakanBalint/SzFMMini/issues"
+  },
+  "homepage": "https://github.com/FakanBalint/SzFMMini#readme"
+}
