@@ -13,7 +13,7 @@ router.get('/users/count', getTotalUserCount);
 
 router.post('/login', loginUser);
 router.post('/logout', verifyToken, logoutUser);
-router.post('/user/register', registerUser);
+router.post('/register', registerUser);
 
 router.get('/', (req,res) =>{
     res.status(200);
