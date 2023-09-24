@@ -1,0 +1,18 @@
+SZFMMINI/
+|
+├── backend/
+|   |
+│   ├── controllers/
+│   │   ├──                     (Controllers)
+│   ├── models/
+│   │   ├── (Models)
+│   ├── node_modules/           (gitignored)
+│   ├── routes/
+│   │   ├──                     (Routes)
+│   ├── .env                    (Environment variables)  
+│   ├── package.json            (Project details and dependencies)
+│   ├── package-lock.json       (Versions of dependencies)
+│   ├── server.js               (Server file)
+|   |
+├── frontend/
+│   ├── (Frontend files and directories)
