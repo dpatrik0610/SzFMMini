@@ -1,9 +1,13 @@
-async function logout(req, res) {
-    // Perform logout actions, e.g., clear user's session or token
-    // Optionally, you can add more logout-related logic here
-  
-    res.json({ message: 'Logout successful' });
+async function logoutUser(req, res) {
+    try {
+      res.clearCookie('token');
+      
+      return res.status(200).json({ message: 'Logout successful' });
+    } catch (error) {
+      console.error('Error during logout:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
   }
   
-  module.exports = logout;
+  module.exports = logoutUser;
   

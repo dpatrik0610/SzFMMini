@@ -26,6 +26,11 @@ class UserRepository {
     const user = await this.collection.findOne({ username });
     return !!user;
   }
+
+  async getTotalUserCount() {
+    const totalUsers = await this.collection.countDocuments();
+    return totalUsers;
+  }
 }
 
 module.exports = { UserRepository };
