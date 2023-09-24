@@ -8,7 +8,7 @@ async function registerUser(req, res) {
     const { username, password } = req.body;
 
     // Check if the username already exists
-    const existingUser = await userRepository.getUserByUsername(username);
+    const existingUser = await userRepository.doesUsernameExist(username);
 
     if (existingUser) {
       return res.status(400).json({ message: 'Username already exists' });

@@ -1,4 +1,4 @@
-const { ObjectID } = require('mongodb');
+const { ObjectId } = require('mongodb');
 const database = require('./db');
 
 class UserRepository {
@@ -6,7 +6,7 @@ class UserRepository {
     this.collection = database.getDb().collection('users');
   }
 
-  async createUser(user) {
+  async registerUser(user) {
     return await this.collection.insertOne(user);
   }
 
@@ -15,13 +15,17 @@ class UserRepository {
   }
 
   async getUserById(userId) {
-    return await this.collection.findOne({ _id: new ObjectID(userId) });
+    return await this.collection.findOne({ _id: new ObjectId(userId) });
   }
 
   async getUserList() {
     return await this.collection.find().toArray();
   }
 
+  async doesUsernameExist(username) {
+    const user = await this.collection.findOne({ username });
+    return !!user;
+  }
 }
 
 module.exports = { UserRepository };

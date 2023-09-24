@@ -1,15 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const database = require('./models/db');
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Configure CORS for regular HTTP requests
-app.use(cors());
+app.use(cookieParser());
 
 // Database connection setup
 (async () => {
