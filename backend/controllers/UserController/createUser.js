@@ -1,4 +1,4 @@
-const { UserRepository } = require('../UserRepository');
+const { UserRepository } = require('../../models/UserRepository');
 const userRepository = new UserRepository();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -14,7 +14,6 @@ async function createUser(req, res) {
       return res.status(400).json({ message: 'Username already exists' });
     }
 
-    // Hash the password before saving it
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user document
@@ -27,7 +26,7 @@ async function createUser(req, res) {
 
     // Generate a JWT token for the newly created user
     const token = jwt.sign({ userId: result.insertedId }, process.env.JWT_SECRET, {
-      expiresIn: '1h', // Token expires in 1 hour (adjust as needed)
+      expiresIn: '1h',
     });
 
     res.status(201).json({ message: 'User created', token });

@@ -1,11 +1,11 @@
 const { UserRepository } = require('../../models/UserRepository');
 const userRepository = new UserRepository();
 
-async function getUserById(req, res) {
-  try {
-    const { userId } = req.params;
+async function getUserByUsername(req, res) {
+  const { username } = req.params;
 
-    const user = await userRepository.getUserById(userId);
+  try {
+    const user = await userRepository.getUserByUsername(username);
 
     if (user) {
       res.status(200).json(user);
@@ -13,9 +13,9 @@ async function getUserById(req, res) {
       res.status(404).json({ message: 'User not found' });
     }
   } catch (error) {
-    console.error('Error fetching user by ID:', error);
+    console.error('Error fetching user by username:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 }
 
-module.exports = getUserById;
+module.exports = getUserByUsername;
