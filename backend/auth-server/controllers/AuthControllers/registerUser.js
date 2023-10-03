@@ -1,5 +1,5 @@
-const { UserRepository } = require('../../models/UserRepository');
-const userRepository = new UserRepository();
+const { AuthRepository } = require('../../models/AuthRepository');
+const authRepository = new AuthRepository();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -9,7 +9,7 @@ async function registerUser(req, res) {
     if(username == "" || password == "") return res.status(400).json({message: "Bad Request."});
 
     // Check if the username already exists
-    const existingUser = await userRepository.doesUsernameExist(username);
+    const existingUser = await authRepository.doesUsernameExist(username);
 
     if (existingUser) {
       return res.status(400).json({ message: 'Username already exists' });
@@ -26,7 +26,7 @@ async function registerUser(req, res) {
       planted_trees: [],
     };
 
-    const result = await userRepository.registerUser(newUser);
+    const result = await authRepository.registerUser(newUser);
 
     // Generate a JWT token for the newly created user
     const token = jwt.sign({ userId: result.insertedId }, process.env.JWT_SECRET, {

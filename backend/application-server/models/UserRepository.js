@@ -6,9 +6,6 @@ class UserRepository {
     this.collection = database.getDb().collection('users');
   }
 
-  async registerUser(user) {
-    return await this.collection.insertOne(user);
-  }
 
   async getUserByUsername(username) {
     return await this.collection.findOne({ username });
@@ -20,11 +17,6 @@ class UserRepository {
 
   async getUserList() {
     return await this.collection.find().toArray();
-  }
-
-  async doesUsernameExist(username) {
-    const user = await this.collection.findOne({ username });
-    return !!user;
   }
 
   async getTotalUserCount() {

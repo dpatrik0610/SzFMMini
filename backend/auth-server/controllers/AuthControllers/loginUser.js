@@ -1,5 +1,5 @@
-const { UserRepository } = require('../../models/UserRepository');
-const userRepository = new UserRepository();
+const { AuthRepository } = require('../../models/AuthRepository');
+const authRepository = new UserRepository();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -7,10 +7,11 @@ async function loginUser(req, res) {
   try {
     const { username, password } = req.body;
     if(username == "" || password == "") return res.status(400).json({message: "Bad Request."});
+    
     const alreadyLoggedIn = req.cookies.token;
     if(alreadyLoggedIn) { return res.status(400).json({ message: 'User is already logged in.'});}
     // Check if the user with the provided username exists
-    const user = await userRepository.getUserByUsername(username);
+    const user = await authRepository.getUserByUsername(username);
 
     if (!user) {
       return res.status(401).json({ message: 'User does not exist.' });

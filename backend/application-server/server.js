@@ -30,7 +30,9 @@ app.use(morgan('combined'));
 
 // Routes
 const routes = require('./routes/apiRoutes');
-app.use('/', routes)
+const auth = require('./routes/auth');
+app.use('/api', routes);
+app.use('/auth', auth);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
