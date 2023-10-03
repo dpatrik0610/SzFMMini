@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require("cors");
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const database = require('./database/db');
 const PORT = process.env.PORT || 4000;
@@ -16,6 +17,7 @@ app.use(cors({
 }));
 
 app.use(morgan('combined'));
+app.use(cookieParser());
 
 // Database connection setup
 (async () => {

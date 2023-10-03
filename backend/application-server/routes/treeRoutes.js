@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const verifyToken = require('../middlewares/verifyToken');
-const { getActiveTree, getTreeAge, getTreeState, plantTree, promoteTreeState, chopTree, sprinkleActiveTree, treeCondition} = require('../controllers/TreeController');
+const verifyToken = require('../../auth-server/middlewares/verifyToken');
+const { getActiveTree, getTreeAge, getTreeState, plantTree, promoteTreeState, chopTree, sprinkleActiveTree, treeCondition} = require('../controllers/TreeService');
 
 // Protect all routes in this file with the token
 router.use(verifyToken);

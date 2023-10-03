@@ -26,7 +26,7 @@ async function loginUser(req, res) {
 
     // Generate a JWT token for the authenticated user
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
+      expiresIn: '10m',
     });
 
     // Set the token as a cookie

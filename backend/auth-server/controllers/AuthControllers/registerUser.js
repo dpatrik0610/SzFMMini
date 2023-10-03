@@ -23,14 +23,13 @@ async function registerUser(req, res) {
       password: hashedPassword,
       registration_date: new Date(),
       last_login_date: new Date(),
-      planted_trees: [],
     };
 
     const result = await authRepository.registerUser(newUser);
 
     // Generate a JWT token for the newly created user
     const token = jwt.sign({ userId: result.insertedId }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
+      expiresIn: '10m',
     });
 
     // Set the token as a cookie in the response

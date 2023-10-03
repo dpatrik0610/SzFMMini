@@ -1,4 +1,4 @@
-const getTotalUserCount = require('./UtilController/getTotalUserCount');
+const getTotalUserCount = require('./UtilServiceFunctions/getTotalUserCount');
 
 // Export the collected functions as an object
 module.exports = {

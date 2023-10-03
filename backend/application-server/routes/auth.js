@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const authServerUrl = process.env.AuthServerURL; // Replace with the actual URL of your authentication server
+const authServerUrl = process.env.AuthServerURL;
 
 // User registration
 router.post('/register', async (req, res) => {
@@ -28,11 +28,15 @@ router.post('/login', async (req, res) => {
 // User logout
 router.post('/logout', async (req, res) => {
   try {
+
     const response = await axios.post(`${authServerUrl}/logout`, null, {
       headers: {
         Authorization: `Bearer ${req.cookies.token}`,
       },
     });
+
+    res.clearCookie('token');
+
     res.status(response.status).json(response.data);
   } catch (error) {
     console.error('Error logging out:', error.message);

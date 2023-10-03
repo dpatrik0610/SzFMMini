@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getUserByUsername, getUserById , getUserList} = require('../controllers/UserController');
-const { getTotalUserCount } = require('../controllers/utilController');
+const { getUserByUsername, getUserById , getUserList} = require('../controllers/userService');
+const { getTotalUserCount } = require('../controllers/utilService');
 const treeRoutes = require('./treeRoutes');
-const verifyToken = require('../middlewares/verifyToken');
+const verifyToken = require('../../auth-server/middlewares/verifyToken');
 
 router.use('/tree', verifyToken, treeRoutes);
 router.get('/user/:username', verifyToken, getUserByUsername);
