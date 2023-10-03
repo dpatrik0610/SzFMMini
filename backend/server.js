@@ -1,14 +1,22 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const cors = require("cors");
+const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
 const database = require('./models/db');
 const PORT = process.env.PORT || 3000;
 
+// Middlewares
 app.use(express.json());
-
+app.use(cors({
+  origin: ['193.6.168.234'],
+  methods: "GET,POST",
+  optionsSuccessStatus: 200
+}));
 app.use(cookieParser());
+app.use(morgan('combined'));
 
 // Database connection setup
 (async () => {

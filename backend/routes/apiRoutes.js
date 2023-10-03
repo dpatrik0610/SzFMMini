@@ -7,10 +7,11 @@ const treeRoutes = require('./treeRoutes');
 
 
 router.use('/tree', treeRoutes);
-router.get('/users', verifyToken, getUserList);
 router.get('/user/:username', verifyToken, getUserByUsername);
 router.get('/user/id/:userId', verifyToken, getUserById);
-router.get('/users/count', getTotalUserCount);
+
+router.get('/api/users', verifyToken, getUserList);
+router.get('/api/users/count', getTotalUserCount);
 
 router.post('/login', loginUser);
 router.post('/logout', verifyToken, logoutUser);
