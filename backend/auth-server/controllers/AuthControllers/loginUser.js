@@ -1,5 +1,5 @@
 const { AuthRepository } = require('../../models/AuthRepository');
-const authRepository = new UserRepository();
+const authRepository = new AuthRepository();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
