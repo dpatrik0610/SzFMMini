@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 async function registerUser(req, res) {
   try {
     const { username, password } = req.body;
+    if(username == "" || password == "") return res.status(400).json({message: "Bad Request."});
 
     // Check if the username already exists
     const existingUser = await userRepository.doesUsernameExist(username);

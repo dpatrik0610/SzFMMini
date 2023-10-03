@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 async function loginUser(req, res) {
   try {
     const { username, password } = req.body;
+    if(username == "" || password == "") return res.status(400).json({message: "Bad Request."});
     const alreadyLoggedIn = req.cookies.token;
     if(alreadyLoggedIn) { return res.status(400).json({ message: 'User is already logged in.'});}
     // Check if the user with the provided username exists
