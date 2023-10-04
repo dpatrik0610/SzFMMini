@@ -11,12 +11,15 @@ async function sprinkleActiveTree(req, res) {
         return res.status(400).json({ message: 'No active tree found for the user' });
     }
 
-    const result = await treeRepository.sprinkleTree(userId, activeTreeId);
+    const currentDate = new Date();
+    const updatedTreeData = { last_sprinkled: currentDate };
 
-    if (result.success) {
+    const result = await treeRepository.updateTreeById(activeTreeId, updatedTreeData);
+
+    if (result) {
         return res.status(200).json({ message: 'Tree sprinkled successfully' });
     } else {
-        return res.status(500).json({ message: result.message });
+        return res.status(500).json({ message: 'Failed to sprinkle tree' });
     }
 }
 

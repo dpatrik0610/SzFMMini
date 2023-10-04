@@ -7,7 +7,7 @@ async function getTree(req, res) {
   if(!treeId) return res.status(404).json({ message: 'No alive tree found.' });
 
   try {
-    const tree = await treeRepository.getTree(userId, treeId);
+    const tree = await treeRepository.getTreeData(userId, treeId);
     res.status(200).json(tree);
   } catch (error) {
     res.status(500).json({ message: `Error fetching tree: ${error}` });

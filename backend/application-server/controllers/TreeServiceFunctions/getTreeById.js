@@ -4,9 +4,8 @@ const treeRepository = new TreeRepository();
 async function getTree(req, res) {
   const userId = req.user.userId;
   const { treeId } = req.params;
-
   try {
-    const tree = await treeRepository.getTree(userId, treeId);
+    const tree = await treeRepository.getTreeData(userId, treeId);
     if (!tree) return res.status(404).json({ message: 'Tree not found' });
     res.status(200).json(tree);
   } catch (error) {

@@ -1,4 +1,5 @@
 const treeSchema = {
+        user_id: {type: ObjectID, ref: 'User'},
         tree_id: { type: ObjectID, ref: 'Tree' },
         plant_date: { type: Date, required: true },
         tree_type: { type: String, required: true },

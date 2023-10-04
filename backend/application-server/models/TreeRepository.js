@@ -1,62 +1,87 @@
-const { UserRepository } = require('./UserRepository');
-const getTree = require('./TreeRepository/getTree');
-const findAliveTreeId = require('./TreeRepository/findAliveTreeId');
-const getUserPlantedTrees = require('./TreeRepository/getUserPlantedTrees');
-const chopTree = require('./TreeRepository/chopTree');
-const getTreeAge = require('./TreeRepository/getTreeAge');
-const getTreeState = require('./TreeRepository/getTreeState');
-const getSprinkleDate = require('./TreeRepository/getSprinkleDate');
-const plantTree = require('./TreeRepository/plantTree');
-const promoteTreeState = require('./TreeRepository/promoteTreeState');
-const updateTree = require('./TreeRepository/updateTree');
-const sprinkleTree = require('./TreeRepository/sprinkleTree');
+const { ObjectId } = require('mongodb');
+const database = require('./db');
 
 class TreeRepository {
   constructor() {
-    this.userRepository = new UserRepository();
+    this.treeCollection = database.getDb().collection('trees');
   }
 
-  async getTree(userId, treeId) {
-    return await getTree(this.userRepository, userId, treeId);
+  async getTreeData(userId, treeId) {
+    // Find the tree data by user ID and tree ID
+    const treeData = await this.treeCollection.findOne({
+      _id: new ObjectId(treeId),
+      userId: new ObjectId(userId),
+    });
+    return treeData;
   }
 
   async findAliveTreeId(userId) {
-    return await findAliveTreeId(this.userRepository, userId);
+    // Find the alive tree's _id for the user
+    const aliveTree = await this.treeCollection.findOne({
+      userId: new ObjectId(userId),
+      treeState: {$ne: 0}, // Check for treeState not equal to 0 (dead)
+    });
+
+    return aliveTree ? aliveTree._id : null;
   }
 
   async getUserPlantedTrees(userId) {
-    return await getUserPlantedTrees(this.userRepository, userId);
+    // Find all trees planted by the user
+    const userPlantedTrees = await this.treeCollection.find({
+      userId: new ObjectId(userId),
+    }).toArray();
+
+    return userPlantedTrees;
   }
 
   async chopTree(userId, treeId) {
-    return await chopTree(this.userRepository, userId, treeId);
-  }
+    // Chop the tree (update treeState to 0)
+    const result = await this.treeCollection.updateOne(
+      {
+        _id: new ObjectId(treeId),
+        userId: new ObjectId(userId),
+      },
+      {
+        $set: {
+          treeState: 0,
+        },
+      }
+    );
 
-  async getTreeAge(userId, treeId) {
-    return await getTreeAge(this.userRepository, userId, treeId);
-  }
-
-  async getTreeState(userId, treeId) {
-    return await getTreeState(this.userRepository, userId, treeId);
-  }
-
-  async getSprinkleDate(userId, treeId) {
-    return await getSprinkleDate(this.userRepository, userId, treeId);
+    return result.modifiedCount === 1;
   }
 
   async plantTree(userId, treeType) {
-    return await plantTree(this.userRepository, userId, treeType);
+    // Insert a new tree for the user
+    const newTree = {
+      _id: new ObjectId(),
+      userId: new ObjectId(userId),
+      plant_date: new Date(),
+      tree_type: treeType,
+      treeState: 1, // Newly planted tree has treeState 1
+      last_sprinkled: new Date(),
+    };
+  
+    const result = await this.treeCollection.insertOne(newTree);
+  
+    return result.value !== null;
   }
+  
+  async updateTreeById(treeId, updatedTreeData) {
+    try {
+      const result = await this.treeCollection.updateOne(
+        { _id: new ObjectId(treeId) },
+        { $set: updatedTreeData }
+      );
 
-  async promoteTreeState(userId, treeId, new_state) {
-    return await promoteTreeState(this.userRepository, userId, treeId, new_state);
-  }
-
-  async updateTree(userId, treeId, newTreeData){
-    return await updateTree(this.userRepository, userId, treeId, newTreeData);
-  }
-  async sprinkleTree(userId, treeId){
-    return await sprinkleTree(this.userRepository, userId, treeId);
+      if (result.matchedCount === 1) {
+        return true; // Tree updated successfully
+      } else {
+        return false; // Tree not found or not updated
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

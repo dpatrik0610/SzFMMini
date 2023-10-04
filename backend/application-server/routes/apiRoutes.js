@@ -3,9 +3,9 @@ const router = express.Router();
 const { getUserByUsername, getUserById , getUserList} = require('../controllers/userService');
 const { getTotalUserCount } = require('../controllers/utilService');
 const treeRoutes = require('./treeRoutes');
-const verifyToken = require('../../auth-server/middlewares/verifyToken');
+const verifyToken = require('../middlewares/verifyToken');
 
-router.use('/tree', verifyToken, treeRoutes);
+router.use('/tree', treeRoutes);
 router.get('/user/:username', verifyToken, getUserByUsername);
 router.get('/user/id/:userId', verifyToken, getUserById);
 

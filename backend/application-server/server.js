@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require("cors");
-const morgan = require('morgan');
+const customLogger = require('./middlewares/morgan');
 const cookieParser = require('cookie-parser');
 
 const database = require('./models/db');
@@ -16,7 +16,7 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 app.use(cookieParser());
-app.use(morgan('combined'));
+app.use(customLogger);
 
 // Database connection setup
 (async () => {

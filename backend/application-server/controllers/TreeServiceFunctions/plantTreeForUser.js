@@ -7,8 +7,8 @@ async function plantTree(req, res) {
 
   try {
     // Check if the user has any alive trees
-    const aliveTreeId = await treeRepository.findAliveTreeId(userId); // Use findAliveTreeId, not getAliveTreeId
-
+    const aliveTreeId = await treeRepository.findAliveTreeId(userId);
+    console.log(aliveTreeId)
     if (aliveTreeId === null) {
       // If no alive trees, then allow planting a new tree
       const success = await treeRepository.plantTree(userId, treeType);
