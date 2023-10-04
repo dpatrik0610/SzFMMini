@@ -13,11 +13,11 @@ app.use(express.json());
 app.use(cors({
   origin: '*',
   methods: "GET,POST",
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  credentials: true
 }));
-
-app.use(customLogger);
 app.use(cookieParser());
+app.use(customLogger);
 
 // Database connection setup
 (async () => {

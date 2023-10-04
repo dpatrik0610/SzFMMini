@@ -17,13 +17,7 @@ async function loginUser(req, res) {
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
-
     const { username, password } = req.body;
-
-    const alreadyLoggedIn = req.cookies.token;
-    if (alreadyLoggedIn) {
-      return res.status(400).json({ message: 'User is already logged in.' });
-    }
 
     // Check if the user with the provided username exists
     const user = await authRepository.getUserByUsername(username);
@@ -47,7 +41,7 @@ async function loginUser(req, res) {
     res.cookie('token', token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'lax',
+      sameSite: 'None'
     });
 
     res.status(200).json({ message: 'Login successful', token });

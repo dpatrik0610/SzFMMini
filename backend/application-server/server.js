@@ -13,7 +13,8 @@ app.use(express.json());
 app.use(cors({
   origin: '*',
   methods: "GET,POST",
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  credentials: true
 }));
 app.use(cookieParser());
 app.use(customLogger);
